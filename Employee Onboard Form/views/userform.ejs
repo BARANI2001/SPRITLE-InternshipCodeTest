@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>User form</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/x-icon" href="bitcoin.png">
+
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #f1f1f1;}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #3333ff;
+}
+
+input[type=text], input[type=tel], input[type=email], input[type=password], input[type=date],select, textarea{
+  width: 94%;
+  padding: 12px 20px;
+  margin: 3% 3% 3% 3%;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+  margin-left:10%;
+  color: white;
+  border: none;
+  cursor: pointer;
+  
+}
+
+
+.submitbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #04AA6D;
+  position: absolute;
+  right: 40%;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+img.avatar {
+  width: 45%;
+  border-radius: 50%;
+}
+
+.content{
+  border-radius: 5px;
+  background-color: #d9d9d9;
+  padding: 20px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 30%; /* Full width */
+  height: 50%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  padding-top: 1%;
+  padding-right:35%;
+  padding-left:35%;
+  padding-bottom: 1%;
+  margin-top: 1%;
+  background-color: #f2f2f2;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 100%; /* Could be more or less, depending on screen size */
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+  .submitbtn{
+  	width: 100%;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div id="id01" class="modal">
+
+<form action="/updateForm" method="post">
+  <div class="content">
+  <h3>Fill the form with your details</h3>
+  <div class="imgcontainer">
+    <img src="<%= user.pic %> " alt="Avatar" class="avatar">
+  </div>
+  
+    First Name
+		<input type="text" id="firstName" name="firstName" required placeholder="Enter the First Name" title="First Name of the User" 
+      oninvalid="InvalidFirstName(this);" oninput="InvalidFirstName(this);" maxlength="20" value="<%= user.firstName %>">
+    
+    <br><br>Last Name
+    <input type="text" id="lastName" name="lastName" required placeholder="Enter the Last Name" title="Last Name of the User" 
+      oninvalid="InvalidLastName(this);" oninput="InvalidLastName(this);" maxlength="20" value="<%= user.lastName %>" >
+
+    <br><br>Email-ID
+    <input type="email" id="email" name="email" required placeholder="Enter the Email Id"
+      oninvalid="InvalidEmail(this);" oninput="InvalidEmail(this);" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+      title="Email of the user" maxlength="50" value="<%= user.email %>" readonly>
+
+    <br><br>Date of Joining
+    <input type="text" id="doj" name="doj" required
+    oninvalid="InvalidDOJ(this);" oninput="InvalidDOJ(this);" title="Date of joining of the user" maxlength="10" readonly>
+   
+    <br><br>Address
+    <input type="text" id="address" name="address" required placeholder="Enter the Address"
+    oninvalid="InvalidAddress(this);" oninput="InvalidAddress(this);"
+      title="Address of the user " maxlength="1000">
+
+    <br><br>10th (optional)
+    <input type="text" id="tenth" name="tenth" placeholder="Enter your 10th education" 
+      title="10th education of the User" maxlength="50">
+  
+    <br><br>12th (optional)
+    <input type="text" id="twelfth" name="twelfth" placeholder="Enter your 12th education" 
+    title="12th education of the User" maxlength="50">
+
+    <br><br>UG (optional)
+    <input type="text" id="ug" name="ug" placeholder="Enter your UG education" 
+      title="UG education of the User" maxlength="50">
+    
+    <br><br>PG (optional)
+    <input type="text" id="pg" name="pg" placeholder="Enter your PG education" 
+      title="PG education of the User" maxlength="50">
+    <br><br>
+
+    <button type="reset" class="cancelbtn">Reset</button> 
+  	<button type="submit" class="submitbtn">Submit</button><br>
+    <span class="psw">Use Another Account!? </label> <a href="/">home page</a></span>
+    <br><br><br>
+
+  </div>
+
+</form>
+
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" crossorigin="anonymous"></script>
+
+
+<script>
+
+
+var currentDate = moment().format('MM/DD/YYYY');
+document.getElementById('doj').value = currentDate;
+console.log('Current Date : ' + currentDate);
+  
+
+  function InvalidFirstName(textbox) {
+    if (textbox.value === '') {
+        textbox.setCustomValidity('First Name of the user is necessary!');
+    } else if (textbox.validity.typeMismatch) {
+        textbox.setCustomValidity('Please provide a valid First Name');
+    } else if (textbox.validity.tooLong) {
+        textbox.setCustomValidity('First Name of the user must not exceed 20 characters');
+    } else {
+        textbox.setCustomValidity('');
+    }
+  return true;
+}
+
+function InvalidLastName(textbox) {
+    if (textbox.value === '') {
+        textbox.setCustomValidity('Last Name of the user is necessary!');
+    } else if (textbox.validity.typeMismatch) {
+        textbox.setCustomValidity('Please provide a valid Last Name');
+    } else if (textbox.validity.tooLong) {
+        textbox.setCustomValidity('Last Name of the user must not exceed 20 characters');
+    } else {
+        textbox.setCustomValidity('');
+    }
+  return true;
+}
+  function InvalidEmail(textbox) {
+    if (textbox.value === '') {
+        textbox.setCustomValidity('Entering an Email-id is necessary!');
+    }  else if (textbox.validity.typeMismatch) {
+        textbox.setCustomValidity('Please provide a valid Email-ID');
+    } else if (textbox.validity.tooLong) {
+        textbox.setCustomValidity('email-ID of the user must not exceed 100 characters');
+    } else {
+        textbox.setCustomValidity('');
+    }
+  return true;
+}
+
+  function InvalidDOJ(textbox) {
+    if (textbox.value === '') {
+        textbox.setCustomValidity('Selecting date of joining is necessary!');
+    } else if (textbox.validity.typeMismatch) {
+        textbox.setCustomValidity('Please provide a valid date');
+    } else {
+        textbox.setCustomValidity('');
+    }
+  return true;
+}
+
+function InvalidAddress(textbox) {
+    if (textbox.value === '') {
+        textbox.setCustomValidity('Entering an Address is necessary!');
+    }  else if (textbox.validity.typeMismatch) {
+        textbox.setCustomValidity('Please provide a valid Address');
+    } else if (textbox.validity.tooLong) {
+        textbox.setCustomValidity('Address of the user must not exceed 1000 characters');
+    } else {
+        textbox.setCustomValidity('');
+    }
+  return true;
+}
+</script>
+</html>
