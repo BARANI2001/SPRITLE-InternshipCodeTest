@@ -1,2 +1,2 @@
 # SPRITLE-InternshipCodeTest
-Web Developer - Internship code test
+Web Developer(Full stack developer test) - Internship code test
